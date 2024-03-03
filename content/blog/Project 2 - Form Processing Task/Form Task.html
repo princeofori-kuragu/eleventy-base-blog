@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Contact Us</h1>
+    <div id="message"></div> <!-- Message container -->
+    <form id="contactForm" action="submit_form.php" method="POST">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" required>
+        </div>
+        <div class="mb-3">
+            <label for="surname" class="form-label">Surname</label>
+            <input type="text" class="form-control" id="surname" name="surname" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+            <label class="form-check-label" for="terms">Happy to sign my life away</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<!-- Bootstrap JavaScript (Optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript to handle form submission and geolocation -->
+<script>
+    // Function to display message
+    function displayMessage(message, type = 'info') {
+        const messageContainer = document.getElementById('message');
+        messageContainer.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
+    }
+
+    // Check if user is in the United Kingdom
+    function checkLocation() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            // Get latitude and longitude
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            // Use a geocoding API to get country name from coordinates
+            const apiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`;
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const country = data.countryName;
+                    // Display location message
+                    displayMessage(`You are currently in ${country}.`);
+                    // Log location to console
+                    console.log('User location:', country);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    }
+
+    // Check location on page load
+    window.addEventListener('load', function() {
+        checkLocation();
+    });
+
+    // Add event listener to form submission
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        // Prevent default form submission
+        event.preventDefault();
+        
+        // Log form data to console
+        console.log('Form submitted:', {
+            firstName: document.getElementById('firstName').value,
+            surname: document.getElementById('surname').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value,
+            termsAccepted: document.getElementById('terms').checked
+        });
+        
+        // Show submission alert
+        alert('Form submitted successfully!');
+    });
+</script>
+
+</body>
+</html>

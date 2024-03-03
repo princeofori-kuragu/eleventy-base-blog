@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p><strong>Task 2</strong></p>
+    <p>1. Create an array of your favourite foods.</p>
+    <P>2. Print some of them to the screen</P>
+
+    <script>
+        // Create an array to store the user's favourite foods
+        let favouriteFoods = [];
+
+        // Use a loop to get input for 5 favourite foods
+        for (let i = 1; i <= 5; i++) {
+            let food = prompt(`Enter your favourite food #${i}:`);
+            favouriteFoods.push(food);
+            favouriteFoods.sort();
+        }
+
+        // Print some of the favourite foods to the screen
+        document.writeln("Some of your favourite foods are:");
+        for (let i = 0; i < Math.min(3, favouriteFoods.length); i++) {
+            document.writeln(favouriteFoods[i]);
+        }
+    </script>
+</body>
+</html>

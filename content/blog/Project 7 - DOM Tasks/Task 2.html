@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>My todo list</h1>
+        
+        <form id="todo">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" required>
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button type="button">Add</button>
+        </form>
+      
+        <!-- This is an empty container for use by javascript. -->
+        <ul id="todo-pane"></ul>
+        
+        <footer>
+          <small>
+            Flag images used with thanks from <a href="https://www.iconfinder.com/iconsets/prettyoffice8">https://www.iconfinder.com/iconsets/prettyoffice8</a>.
+          </small>
+        </footer>
+      </div>
+      <script>
+        const todoPane = document.getElementById('todo-pane');
+    
+    function createElement(title) {
+      // Create the text node with the variable 'title'.
+      const textNode = document.createTextNode(title);
+      
+      // Create a new list item element to contain the text node.
+      const li = document.createElement('li');
+      
+      // Add the text node to the list item element.
+      li.appendChild(textNode);
+      
+      // Return the new element.
+      return li;
+    }
+    
+    const newElement = createElement('This is the title');
+    
+    // Insert newElement into the unordered list with id 'todo-pane'.
+    todoPane.appendChild(newElement);
+    </script>  
+    
+</body>
+</html>

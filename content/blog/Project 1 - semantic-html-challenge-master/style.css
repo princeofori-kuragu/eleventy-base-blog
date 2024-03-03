@@ -1,0 +1,104 @@
+/* General styling for the body */
+body {
+  font-family: 'Rock Salt', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+}
+
+/* Styling for the container div */
+.container {
+  width: 90%; /* Use a percentage for flexibility */
+  margin: 20px auto; /* Center the container */
+}
+
+/* Styling for the table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Use fixed table layout for predictable column widths */
+}
+
+/* Styling for table header and data cells */
+th, td {
+  border: 1px solid #800080;
+  padding: 15px;
+  text-align: left;
+}
+
+/* Styling for table header */
+th {
+  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+  background-image: url('leopardskin.jpg');
+  color: white;
+}
+
+/* Styling for table body */
+tbody {
+  background-image: url('noise.png');
+  color: white;
+}
+
+/* Styling for table footer */
+tfoot {
+  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+  background-image: url('leopardskin.jpg');
+  color: white;
+}
+
+/* Styling for odd rows */
+tr:nth-child(odd) {
+  background-color: #ff33cc;
+}
+
+/* Styling for even rows */
+tr:nth-child(even) {
+  background-color: #e495e4;
+}
+
+/* Styling for images within the table */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Zebra striping for better readability */
+tr:nth-child(even) td {
+  border-bottom: 1px solid #800080; /* Match the border color */
+}
+
+/* Center text in header and data cells */
+th, td {
+  text-align: center;
+}
+
+/* Additional styling for thead, tbody, and tfoot */
+thead {
+  background-color: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+  color: white;
+}
+
+/* Styling for table footer */
+tfoot {
+  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+  color: white;
+}
+
+/* tfoot borders */
+tfoot td {
+  border: 0px solid #800080;
+  text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  th, td {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+/* Hover effect for table rows */
+tr:hover {
+  background-color: #ffff99; /* Change the background color as desired */
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Todo</h1>
+        
+        <form id="todo">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" required>
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button type="button">Add</button>
+        </form>
+      
+        <!-- This is an empty container for use by javascript. -->
+        <ul id="todo-pane"></ul>
+        
+        <footer>
+          <small>
+            Flag images used with thanks from <a href="https://www.iconfinder.com/iconsets/prettyoffice8">https://www.iconfinder.com/iconsets/prettyoffice8</a>.
+          </small>
+        </footer>
+      </div>
+      <script>
+        // Store the URL of an image for each priority level.
+        const priorityImages = {
+          low: 'https://cdn1.iconfinder.com/data/icons/prettyoffice8/256/Flag-green.png',
+          medium: 'https://cdn1.iconfinder.com/data/icons/prettyoffice8/256/Flag-yellow.png',
+          high: 'https://cdn1.iconfinder.com/data/icons/prettyoffice8/256/Flag-red.png',
+        };
+      
+        // Get the form by ID from the forms collection.
+        const form = document.getElementById('todo');
+        // Get the todo pane (the 'ul' element) to insert todos into.
+        const todoPane = document.getElementById('todo-pane');
+        // Get the text input for the title. We'll read from this when creating the todo.
+        const titleInput = document.getElementById('title');
+        // Get the priority select element. We'll read from this when creating the todo.
+        const prioritySelect = document.getElementById('priority');
+        // Get a *live* list of all elements with the 'todo' class.
+        const allTodos = document.querySelectorAll('.todo');
+      
+        // Add an event listener that will
+        // 1. Create a new todo. The details should come from the form.
+        // 2. Insert it into the DOM.
+        // 3. Clear the title input ready to create a new todo note.
+        // 4. Prevent the default behaviour (ie don't submit to a server).
+        form.addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent default form submission behavior
+      
+          // Get title and priority from the form
+          const title = titleInput.value;
+          const priority = prioritySelect.value;
+      
+          // Create new todo item
+          const newTodo = createTodoElement(title, priority);
+          // Insert the new todo item into the todo pane
+          todoPane.appendChild(newTodo);
+          // Clear the title input
+          titleInput.value = '';
+        });
+      
+        // Function to create a new todo element
+        function createTodoElement(title, priority) {
+          // Create list item element
+          const li = document.createElement('li');
+          li.classList.add('todo');
+      
+          // Create image element for priority
+          const img = document.createElement('img');
+          img.src = priorityImages[priority];
+          li.appendChild(img);
+      
+          // Create div element for title
+          const div = document.createElement('div');
+          div.textContent = title;
+          li.appendChild(div);
+      
+          return li;
+        }
+      
+        // Optional extras:
+        // Add a click handler to the note that deletes it on click using Element.remove().
+        todoPane.addEventListener('click', function(event) {
+          if (event.target.classList.contains('todo')) {
+            event.target.remove();
+          }
+        });
+      </script>  
+</body>
+</html>

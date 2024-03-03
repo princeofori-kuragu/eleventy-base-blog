@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favourite Recipe</title>
+</head>
+<body>
+    <p><strong>Task 5</strong></p>
+    <p>Add a function called letsCook</p>
+    <p>Have it say: "I'm hungry! Let's cook..." with the name of your recipe title.</p>    
+    <p>Call your new method.</p>
+    
+    <script>
+        // Create an object to hold information about a user's favourite recipe
+        let favouriteRecipe = {
+            name: "Spaghetti Bolognese",
+            cuisine: "Italian",
+            servings: 4,
+            ingredients: [
+                "500g minced beef",
+                "1 onion, finely chopped",
+                "2 cloves garlic, minced",
+                "1 can (400g) crushed tomatoes",
+                "2 tablespoons tomato paste",
+                "1 teaspoon dried oregano",
+                "1 teaspoon dried basil",
+                "Salt and pepper to taste",
+                "300g spaghetti",
+                "Grated Parmesan cheese for serving"
+            ],
+            directions: [
+                "In a large saucepan, brown the minced beef over medium heat.",
+                "Add chopped onion and minced garlic to the saucepan, sauté until softened.",
+                "Stir in crushed tomatoes, tomato paste, oregano, basil, salt, and pepper.",
+                "Simmer the sauce for 20-30 minutes, stirring occasionally.",
+                "Meanwhile, cook spaghetti according to package instructions.",
+                "Serve the Bolognese sauce over cooked spaghetti, and top with grated Parmesan cheese."
+            ],
+            letsCook: function() {
+                document.writeln(`<p><strong>I'm hungry! Let's cook ${this.name}.</strong></p>`);
+            }
+        };
+
+        // Display recipe properties
+        document.writeln(`<h1>${favouriteRecipe.name}</h1>`);
+        document.writeln(`<p>Cuisine: ${favouriteRecipe.cuisine}</p>`);
+        document.writeln(`<p>Servings: ${favouriteRecipe.servings}</p>`);
+
+        // List ingredients
+        document.writeln("<h2>Ingredients:</h2>");
+        document.writeln("<ul>");
+        favouriteRecipe.ingredients.forEach(ingredient => {
+            document.writeln(`<li>${ingredient}</li>`);
+        });
+        document.writeln("</ul>");
+
+        // List directions
+        document.writeln("<h2>Directions:</h2>");
+        document.writeln("<ol>");
+        favouriteRecipe.directions.forEach(direction => {
+            document.writeln(`<li>${direction}</li>`);
+        });
+        document.writeln("</ol>");
+
+        // Call the letsCook method
+        favouriteRecipe.letsCook();
+    </script>
+</body>
+</html>
