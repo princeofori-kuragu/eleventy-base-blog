@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 1 - Statistics Calculator</title>
+</head>
+<body>
+    <h1>Part 1 - Statistics Calculator</h1>
+
+    <script>
+        // Function to calculate the mean of an array
+        function calculateMean(numbers) {
+            const sum = numbers.reduce((acc, num) => acc + num, 0);
+            return sum / numbers.length;
+        }
+
+        // Function to calculate the mode of an array
+        function calculateMode(numbers) {
+            const frequencyMap = new Map();
+
+            // Count the frequency of each number
+            numbers.forEach(num => {
+                frequencyMap.set(num, (frequencyMap.get(num) || 0) + 1);
+            });
+
+            // Find the mode(s)
+            let mode = [];
+            let maxFrequency = 0;
+
+            frequencyMap.forEach((frequency, num) => {
+                if (frequency > maxFrequency) {
+                    mode = [num];
+                    maxFrequency = frequency;
+                } else if (frequency === maxFrequency) {
+                    mode.push(num);
+                }
+            });
+
+            return mode;
+        }
+
+        // Function to calculate the median of an array
+        function calculateMedian(numbers) {
+            const sortedNumbers = numbers.slice().sort((a, b) => a - b);
+            const middle = Math.floor(sortedNumbers.length / 2);
+
+            if (sortedNumbers.length % 2 === 0) {
+                // If the array has an even length, average the middle two numbers
+                return (sortedNumbers[middle - 1] + sortedNumbers[middle]) / 2;
+            } else {
+                // If the array has an odd length, return the middle number
+                return sortedNumbers[middle];
+            }
+        }
+
+        // Prompt user for input
+        const userInput = prompt("Enter a list of numbers separated by commas:");
+
+        // Convert user input to an array of numbers
+        const numbersArray = userInput.split(',').map(Number);
+
+        // Calculate and display mean, mode, and median
+        const mean = calculateMean(numbersArray);
+        const mode = calculateMode(numbersArray);
+        const median = calculateMedian(numbersArray);
+
+        document.writeln(`<p>Numbers provided: ${numbersArray.join(', ')}</p>`);
+        document.writeln(`<p>Mean: ${mean.toFixed(2)}</p>`);
+        document.writeln(`<p>Mode: ${mode.join(', ')}</p>`);
+        document.writeln(`<p>Median: ${median.toFixed(2)}</p>`);
+    </script>
+</body>
+</html>

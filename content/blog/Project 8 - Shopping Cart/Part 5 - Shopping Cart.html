@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    
+    <!-- Display the full list of items -->
+    <div id="allItems">
+        <h2>All Items</h2>
+        <ul>
+            <!-- List of all items will be displayed here -->
+        </ul>
+    </div>
+
+    <!-- Filters section -->
+    <div>
+        <h2>Filters</h2>
+        <label for="lowPrice">Low Price:</label>
+        <input type="number" id="lowPrice" placeholder="Enter low price">
+
+        <label for="highPrice">High Price:</label>
+        <input type="number" id="highPrice" placeholder="Enter high price">
+
+        <label for="quantity">Include Quantity:</label>
+        <input type="checkbox" id="quantity">
+
+        <button onclick="filterItems()">Apply Filters</button>
+    </div>
+
+    <!-- Display the filtered items -->
+    <div id="filteredItems">
+        <!-- Filtered items will be displayed here -->
+    </div>
+
+    <script>
+        // Sample shoppingCart data in the same HTML file
+        const shoppingCart = [
+            { name: "loaf of bread", type: "food", quantity: 1, price: 0.85 },
+            { name: "multipack beans", type: "food", quantity: 1, price: 1.00 },
+            { name: "mushrooms", type: "food", quantity: 10, price: 0.10 },
+            { name: "can of beer", type: "alcohol", quantity: 4, price: 1.10 },
+            { name: "prosecco", type: "alcohol", quantity: 1, price: 8.99 },
+            { name: "steak", type: "food", quantity: 2, price: 3.99 },
+            { name: "blue cheese", type: "food", quantity: 1, price: 2.99 },
+            { name: "candles", type: "home", quantity: 3, price: 1.99 },
+            { name: "cheesecake", type: "food", quantity: 1, price: 4.99 },
+            { name: "onions", type: "food", quantity: 3, price: 0.40 }
+        ];
+
+        // Display the full list of items initially
+        displayAllItems(shoppingCart);
+
+        function displayAllItems(items) {
+            // Get the container element to display all items
+            const container = document.getElementById("allItems");
+
+            // Create an unordered list to display items
+            const ul = document.createElement("ul");
+
+            items.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = `${item.name} - $${item.price.toFixed(2)} (Type: ${item.type}, Quantity: ${item.quantity})`;
+                ul.appendChild(li);
+            });
+
+            // Append the list to the container
+            container.appendChild(ul);
+        }
+
+        function filterItems() {
+            // Get the lowPrice and highPrice values from input fields
+            const lowPrice = parseFloat(document.getElementById("lowPrice").value);
+            const highPrice = parseFloat(document.getElementById("highPrice").value);
+
+            // Check if the quantity checkbox is checked
+            const includeQuantity = document.getElementById("quantity").checked;
+
+            // Call the filter function with the shoppingCart, price range, and quantity flag
+            const filteredItems = filterByPriceRange(shoppingCart, lowPrice, highPrice, includeQuantity);
+
+            // Display the filtered items
+            displayFilteredItems(filteredItems);
+        }
+
+        function filterByPriceRange(cart, lowPrice, highPrice, includeQuantity) {
+            // Create an empty array to store filtered items
+            const arrItems = [];
+
+            // Loop through each item in the cart
+            for (let i = 0; i < cart.length; i++) {
+                const item = cart[i];
+
+                // Calculate the total price considering the quantity if includeQuantity is true
+                const totalPrice = includeQuantity ? item.price * item.quantity : item.price;
+
+                // Check if the total price falls within the specified range
+                if (totalPrice >= lowPrice && totalPrice <= highPrice) {
+                    arrItems.push(item);
+                }
+            }
+
+            // Return the array of filtered items
+            return arrItems;
+        }
+
+        function displayFilteredItems(filteredItems) {
+            // Get the container element to display filtered items
+            const container = document.getElementById("filteredItems");
+
+            // Clear previous content
+            container.innerHTML = "";
+
+            // Display the filtered items
+            if (filteredItems.length > 0) {
+                const ul = document.createElement("ul");
+
+                filteredItems.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = `${item.name} - $${item.price.toFixed(2)} (Type: ${item.type}, Quantity: ${item.quantity})`;
+                    ul.appendChild(li);
+                });
+
+                container.appendChild(ul);
+            } else {
+                container.textContent = "No items match the specified price range.";
+            }
+        }
+    </script>
+</body>
+</html>
